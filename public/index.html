@@ -11,9 +11,9 @@
             padding: 20px;
         }
 
-        h1 {
+        h1, h2 {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
         #mojDivVJs {
@@ -41,11 +41,44 @@
             margin: 8px 0;
             font-size: 16px;
         }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            width: 300px;
+            margin: 0 auto 30px auto;
+            gap: 10px;
+        }
+
+        input, button {
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
     </style>
 </head>
 <body>
 
     <h1>Ľudia z Render databázy</h1>
+
+    <h2>Pridať človeka</h2>
+
+    <form id="addForm">
+        <input type="text" id="name" placeholder="Meno" required>
+        <input type="number" id="age" placeholder="Vek" required>
+        <input type="text" id="image" placeholder="URL obrázka" required>
+        <button type="submit">Pridať</button>
+    </form>
 
     <div id="mojDivVJs"></div>
 
