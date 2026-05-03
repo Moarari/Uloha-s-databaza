@@ -1,12 +1,25 @@
 import express from "express"
 import pkg from "pg"
 import cors from "cors"
+import path from "path"
+import { fileURLToPath } from "url"
 
 const { Pool } = pkg
 
 const app = express()
 app.use(cors())
 app.use(express.json())
+
+// Potrebné pre správne cesty v ES module
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+
+// 🔥 Servovanie frontendu z priečinka public
+app.use(express.static(path.join(__dirname, "public")))
+
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "public", "index.html"))
+})
 
 // 🔥 Render PostgreSQL pripojenie
 const pool = new Pool({
