@@ -6,10 +6,10 @@ app = Flask(__name__)
 # DB connection
 def get_db_connection():
     return psycopg2.connect(
-        host="dpg-d7ng6mq8qa3s73a6pibg-a.oregon-postgres.render.com",
-        dbname="malevelent_shrime",
-        user="malevelent_shrime_user",
-        password="OB2ueSq9EWwnVyMYOm4IfDZsw4qJXUa1",
+        host="postgresql://malevelent_shrime2_user:ExQmAecmZon2NU33csSjMhnLFwHYOzkb@dpg-d7rm5nnavr4c73a2mr7g-a/malevelent_shrime2",
+        dbname="malevelent_shrime2",
+        user="malevelent_shrime2_user",
+        password="ExQmAecmZon2NU33csSjMhnLFwHYOzkb",
         port=5432,
         sslmode="require"
     )
