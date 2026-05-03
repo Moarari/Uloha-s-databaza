@@ -53,5 +53,18 @@ app.post("/api", async (req, res) => {
     }
 })
 
+// 🔥 DELETE /api/:id – vymaže človeka podľa ID
+app.delete("/api/:id", async (req, res) => {
+    const id = req.params.id
+
+    try {
+        await pool.query("DELETE FROM people WHERE id = $1", [id])
+        res.json({ success: true })
+    } catch (err) {
+        console.error(err)
+        res.status(500).json({ error: "Delete error" })
+    }
+})
+
 const port = process.env.PORT || 3000
 app.listen(port, () => console.log("Server beží na porte " + port))
