@@ -1,6 +1,6 @@
 const mojDivVJs = document.getElementById("mojDivVJs")
 
-fetch("https://uloha-s-databaza.onrender.com")
+fetch("https://uloha-s-databaza.onrender.com/api")
     .then(resp => resp.json())
     .then(data => {
         mojDivVJs.innerHTML = ""
