@@ -1,31 +1,44 @@
-const mojDivVJs = document.getElementById("mojDivVJs")
+// 🔥 Načítanie ľudí z databázy
+async function loadPeople() {
+    const res = await fetch("/api")
+    const data = await res.json()
 
-fetch("https://uloha-s-databaza.onrender.com/api")
-    .then(resp => resp.json())
-    .then(data => {
-        mojDivVJs.innerHTML = ""
+    const div = document.getElementById("mojDivVJs")
+    div.innerHTML = ""
 
-        data.forEach(person => {
-            const card = document.createElement("div")
-            card.className = "card"
-
-            const img = document.createElement("img")
-            img.src = person.image
-
-            const name = document.createElement("p")
-            name.textContent = person.name
-
-            const age = document.createElement("p")
-            age.textContent = `Vek: ${person.age}`
-
-            card.appendChild(img)
-            card.appendChild(name)
-            card.appendChild(age)
-
-            mojDivVJs.appendChild(card)
-        })
+    data.forEach(person => {
+        div.innerHTML += `
+            <div class="card">
+                <img src="${person.image}" alt="">
+                <p><b>${person.name}</b></p>
+                <p>Vek: ${person.age}</p>
+            </div>
+        `
     })
-    .catch(err => {
-        console.error("Chyba pri fetchnutí:", err)
-        mojDivVJs.innerHTML = "<p>Chyba pri načítaní dát.</p>"
+}
+
+loadPeople()
+
+// 🔥 Pridanie človeka cez formulár
+const form = document.getElementById("addForm")
+
+form.addEventListener("submit", async (e) => {
+    e.preventDefault()
+
+    const newPerson = {
+        name: document.getElementById("name").value,
+        age: document.getElementById("age").value,
+        image: document.getElementById("image").value
+    }
+
+    await fetch("/api", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newPerson)
     })
+
+    alert("Človek bol pridaný!")
+
+    form.reset()
+    loadPeople()
+})
