@@ -12,6 +12,7 @@ async function loadPeople() {
                 <img src="${person.image}" alt="">
                 <p><b>${person.name}</b></p>
                 <p>Vek: ${person.age}</p>
+                <button class="deleteBtn" onclick="deletePerson(${person.id})">Odstrániť</button>
             </div>
         `
     })
@@ -37,8 +38,17 @@ form.addEventListener("submit", async (e) => {
         body: JSON.stringify(newPerson)
     })
 
-    alert("Človek bol pridaný!")
-
     form.reset()
     loadPeople()
 })
+
+// 🔥 Vymazanie človeka
+async function deletePerson(id) {
+    if (!confirm("Naozaj chceš odstrániť túto osobu?")) return
+
+    await fetch(`/api/${id}`, {
+        method: "DELETE"
+    })
+
+    loadPeople()
+}
